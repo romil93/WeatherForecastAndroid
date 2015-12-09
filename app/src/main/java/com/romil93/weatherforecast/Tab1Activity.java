@@ -244,6 +244,9 @@ public class Tab1Activity  extends Activity
                     tbl.addView(rowgroup);
                 }
 
+
+                //Button code addded here
+
                 //col 1
 
                 final TableRow rowgroupPlusSign = new TableRow(this);
@@ -291,6 +294,8 @@ public class Tab1Activity  extends Activity
                 tbl.addView(rowgroupPlusSign);
 
                 setContext(this);
+
+                //Button Onclick and populating the rest of the rows
 
                 cell2.setOnClickListener(new View.OnClickListener(){
 

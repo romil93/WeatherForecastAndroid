@@ -33,6 +33,7 @@ import com.romil93.weatherforecast.library.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity implements OnItemSelectedListener {
@@ -382,17 +383,34 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                         state = "WY";
                         break;
                 }
+
+                String error = "Please enter the following fields:\n";
+                int flag = 0;
                 if(Objects.equals(streetAddress, "")) {
+                    flag += 1;
+                    error = error + flag + ". Street Address\n";
                     streetAddressForm.setError("Please Enter the street address");
                 }
                 if(Objects.equals(cityName, "")) {
+                    flag += 1;
+                    error = error + flag + ". City Name\n";
                     cityAddressForm.setError("Please Enter the City Name");
                 }
                 if(Objects.equals(state,"")) {
+                    flag += 1;
+                    error = error + flag + ". State\n";
+
                     TextView errorText = (TextView)spinner.getSelectedView();
                     errorText.setError("anything here, just to add the icon");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Please Choose a state");//changes the selected item text to this
+                }
+
+                if(flag != 0) {
+                    TextView errorMsg = (TextView) findViewById(R.id.textView4);
+                    errorMsg.setTextColor(Color.RED);
+                    errorMsg.setTextSize(20);
+                    errorMsg.setText(error);
                 }
 
                 if(!streetAddress.equals("") && !cityName.equals("") && !state.equals("")) {
@@ -410,6 +428,8 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                 cityAddressForm.setText("");
                 spinner.setSelection(0);
                 radioGroup.check(fahrenheit.getId());
+                TextView errorMsg = (TextView) findViewById(R.id.textView4);
+                errorMsg.setText("");
             }
         });
 
