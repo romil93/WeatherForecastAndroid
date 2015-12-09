@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+    <string name="formtitle">Forecast Search</string>
+    <string name="formTitle">Forecast Search</string>
+    <string name="streetAddressLabel">Street</string>
+    <string name="cityNameLabel">City</string>
+    <string name="stateNameLabel">State</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="celsius">Celsius</string>
+    <string name="searchButton">Search</string>
+    <string name="clearButton">Clear</string>
+    <string name="more_details">More Details</string>
+</resources>
