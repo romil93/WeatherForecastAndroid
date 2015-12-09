@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:id = "@+id/hours24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:padding="5dp">
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:background="#7ae8ff"
+                android:id="@+id/hours24Heading">
+                <TextView
+                    android:id="@+id/runLabel"
+                    android:text="Time"
+                    android:layout_height="30dp"
+                    android:layout_width="100dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/hitLabel"
+                    android:text="Summary"
+                    android:layout_height="30dp"
+                    android:layout_width="120dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/errorLabel"
+                    android:text="Temp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</RelativeLayout>

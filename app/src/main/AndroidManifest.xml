@@ -26,6 +26,12 @@
         <activity android:name=".DetailsActivity">
 
         </activity>
+        <activity android:name=".Tab1Activity">
+
+        </activity>
+        <activity android:name=".Tab2Activity">
+
+        </activity>
     </application>
 
 </manifest>
