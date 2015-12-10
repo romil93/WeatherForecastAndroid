@@ -29,7 +29,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareLinkContent;
+    import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
@@ -104,10 +104,11 @@ public class ResultActivity extends FragmentActivity {
         fb.setOnClickListener(new View.OnClickListener() {
             String description_fb = null;
             String icon_in_json_fb = null;
-            String img_name_fb = "http://weather-forecast-csci571.elasticbeanstalk.com/";
+            String img_name_fb = null;
 
             @Override
             public void onClick(View v) {
+                img_name_fb = "http://weather-forecast-csci571.elasticbeanstalk.com/";
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     Intent intent1 = getIntent();
                     Bundle bd1 = intent1.getExtras();
@@ -126,23 +127,32 @@ public class ResultActivity extends FragmentActivity {
 
                     if (Objects.equals(icon_in_json_fb, "clear-day")) {
                         img_name_fb = img_name_fb + "images/clear.png";
-                    } else if (Objects.equals(icon_in_json_fb, "rain")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "rain")) {
                         img_name_fb = img_name_fb + "images/rain.png";
-                    } else if (Objects.equals(icon_in_json_fb, "clear-night")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "clear-night")) {
                         img_name_fb = img_name_fb + "images/clear_night.png";
-                    } else if (Objects.equals(icon_in_json_fb, "sleet")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "sleet")) {
                         img_name_fb = img_name_fb + "images/sleet.png";
-                    } else if (Objects.equals(icon_in_json_fb, "wind")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "wind")) {
                         img_name_fb = img_name_fb + "images/wind.png";
-                    } else if (Objects.equals(icon_in_json_fb, "snow")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "snow")) {
                         img_name_fb = img_name_fb + "images/snow.png";
-                    } else if (Objects.equals(icon_in_json_fb, "cloudy")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "cloudy")) {
                         img_name_fb = img_name_fb + "images/cloudy.png";
-                    } else if (Objects.equals(icon_in_json_fb, "fog")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "fog")) {
                         img_name_fb = img_name_fb + "images/fog.png";
-                    } else if (Objects.equals(icon_in_json_fb, "partly-cloudy-day")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "partly-cloudy-day")) {
                         img_name_fb = img_name_fb + "images/cloud_day.png";
-                    } else if (Objects.equals(icon_in_json_fb, "partly-cloudy-night")) {
+                    }
+                    else if (Objects.equals(icon_in_json_fb, "partly-cloudy-night")) {
                         img_name_fb = img_name_fb + "images/cloud_night.png";
                     }
 
@@ -163,6 +173,8 @@ public class ResultActivity extends FragmentActivity {
 
                     shareDialog = new ShareDialog((Activity) c);
 
+                    shareDialog.show(linkContent);
+
                     // this part is optional
                     shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                         @Override
@@ -180,7 +192,6 @@ public class ResultActivity extends FragmentActivity {
                             e.printStackTrace();
                         }
                     });
-                    shareDialog.show(linkContent);
                 }
             }
         });
