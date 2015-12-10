@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Getting Data ...");
+            pDialog.setMessage("The Data is COMING YOUR WAY ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();

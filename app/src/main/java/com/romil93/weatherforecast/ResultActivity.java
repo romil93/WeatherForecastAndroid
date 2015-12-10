@@ -352,6 +352,20 @@ public class ResultActivity extends FragmentActivity {
                         startActivity(resultIntent);
                     }
                 });
+
+                Button Map = (Button) findViewById(R.id.map);
+
+                Map.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent resultIntent =  new Intent(ResultActivity.this, MapActivity.class);
+                        resultIntent.putExtra("city", city);
+                        resultIntent.putExtra("json", jsonObj.toString());
+                        resultIntent.putExtra("unit", units);
+                        startActivity(resultIntent);
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     package="com.romil93.weatherforecast" android:configChanges="orientation"
     android:screenOrientation="portrait">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,6 +50,14 @@
         <provider android:authorities="com.facebook.app.FacebookContentProvider916768561737592"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAGBowNBSvMQayp9H_d9h5sIgl5uZA7Wjc" />
+
+        <activity android:name=".MapActivity">
+
+        </activity>
 
     </application>
 
