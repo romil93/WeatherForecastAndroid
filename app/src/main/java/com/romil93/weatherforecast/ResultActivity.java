@@ -1,19 +1,45 @@
 package com.romil93.weatherforecast;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.TimeZone;
@@ -22,7 +48,7 @@ import java.util.TimeZone;
  * Created by romil93 on 06/12/15.
  */
 
-public class ResultActivity extends Activity {
+public class ResultActivity extends FragmentActivity {
     JSONObject jsonObj;
     JSONObject daily;
     JSONArray jsonArray;
@@ -45,11 +71,133 @@ public class ResultActivity extends Activity {
     String units = "";
 
     TextView summary;
+
+    LoginButton loginButton;
+    TextView info;
+
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
+
+    private final String[] PERMISSIONS = new String[] { "public_profile", "email" };
+
+    Context c;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the view from new_activity.xml
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
         setContentView(R.layout.resource_activity);
+
+        loginButton = (LoginButton)findViewById(R.id.login_button);
+
+        shareDialog = new ShareDialog(this);
+        loginButton.setReadPermissions(Arrays.asList("public_profile"));
+        loginButton.setBackgroundResource(R.drawable.fb_icon);
+        info = (TextView)findViewById(R.id.info);
+
+        c = this;
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                String description = null;
+                String icon_in_json = null;
+                String img_name = "http://weather-forecast-csci571.elasticbeanstalk.com/";
+
+                if (ShareDialog.canShow(ShareLinkContent.class)) {
+                    Intent intent1 = getIntent();
+                    Bundle bd1 = intent1.getExtras();
+
+                    try {
+                        jsonObj = new JSONObject((String) bd1.get("json"));
+                        JSONObject current = jsonObj.getJSONObject("currently");
+                        description = current.getString("summary") + ", " + (int) Double.parseDouble(current.getString("temperature"));
+                        city = (String) bd1.get("city");
+                        icon_in_json = current.getString("icon");
+
+                        units = (String) bd1.get("unit");
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if (Objects.equals(icon_in_json, "clear-day")) {
+                        img_name = img_name + "images/clear.png";
+                    } else if (Objects.equals(icon_in_json, "rain")) {
+                        img_name = img_name + "images/rain.png";
+                    } else if (Objects.equals(icon_in_json, "clear-night")) {
+                        img_name = img_name + "images/clear_night.png";
+                    } else if (Objects.equals(icon_in_json, "sleet")) {
+                        img_name = img_name + "images/sleet.png";
+                    } else if (Objects.equals(icon_in_json, "wind")) {
+                        img_name = img_name + "images/wind.png";
+                    } else if (Objects.equals(icon_in_json, "snow")) {
+                        img_name = img_name + "images/snow.png";
+                    } else if (Objects.equals(icon_in_json, "cloudy")) {
+                        img_name = img_name + "images/cloudy.png";
+                    } else if (Objects.equals(icon_in_json, "fog")) {
+                        img_name = img_name + "images/fog.png";
+                    } else if (Objects.equals(icon_in_json, "partly-cloudy-day")) {
+                        img_name = img_name + "images/cloud_day.png";
+                    } else if (Objects.equals(icon_in_json, "partly-cloudy-night")) {
+                        img_name = img_name + "images/cloud_night.png";
+                    }
+
+                    if(Objects.equals(units, "si")) {
+                        description  = description + (char) 0x00B0 + "C";
+                    } else {
+                        description = description + (char) 0x00B0 + "F";
+                    }
+
+                    Log.d("Image", img_name);
+
+                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                            .setContentTitle("Current Weather in " + city)
+                            .setContentDescription(description)
+                            .setImageUrl(Uri.parse(img_name))
+                            .setContentUrl(Uri.parse("http://forecast.io"))
+                            .build();
+
+                    shareDialog = new ShareDialog((Activity) c);
+                    // this part is optional
+                    shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+                        @Override
+                        public void onSuccess(Sharer.Result result) {
+                            Toast.makeText(c, "Facebook Post Successful", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(c, "Post Unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(FacebookException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    shareDialog.show(linkContent);
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                info.setText("Login attempt canceled.");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                info.setText("Login attempt failed.");
+            }
+        });
+
+
+
+
 
         summary = (TextView) findViewById(R.id.summary);
         Intent intent = getIntent();
@@ -209,5 +357,10 @@ public class ResultActivity extends Activity {
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

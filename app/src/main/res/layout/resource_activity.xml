@@ -38,16 +38,15 @@
                 android:text="View Map"
                 android:layout_marginLeft="10dp" />
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:id="@+id/fb"
-                android:src="@drawable/fb_icon"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/map"
-                android:layout_toEndOf="@+id/map"
-                android:layout_alignBottom="@+id/map"
-                android:layout_marginLeft="20dp"/>
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:scaleType="centerInside" />
 
             <ImageView
                 android:id="@+id/main_image"
@@ -247,7 +246,6 @@
 
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
-
 
 
         </RelativeLayout>

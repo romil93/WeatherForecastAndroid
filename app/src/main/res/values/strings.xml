@@ -10,4 +10,16 @@
     <string name="searchButton">Search</string>
     <string name="clearButton">Clear</string>
     <string name="more_details">More Details</string>
+
+    <string name="app_id">916768561737592</string>
+
+    <style name="FacebookLoginButton">
+        <item name="android:background">@drawable/fb_icon</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_toRightOf">@id/map</item>
+        <item name="android:layout_toEndOf">@id/map</item>
+        <item name="android:layout_alignBottom">@id/map</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
 </resources>
