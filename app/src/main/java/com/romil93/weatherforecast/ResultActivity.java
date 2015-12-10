@@ -75,6 +75,8 @@ public class ResultActivity extends FragmentActivity {
     LoginButton loginButton;
     TextView info;
 
+    ImageButton fb;
+
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
@@ -93,22 +95,19 @@ public class ResultActivity extends FragmentActivity {
 
         setContentView(R.layout.resource_activity);
 
-        loginButton = (LoginButton)findViewById(R.id.login_button);
 
         shareDialog = new ShareDialog(this);
-        loginButton.setReadPermissions(Arrays.asList("public_profile"));
-        loginButton.setBackgroundResource(R.drawable.fb_icon);
         info = (TextView)findViewById(R.id.info);
-
+        fb = (ImageButton) findViewById(R.id.button);
         c = this;
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                String description = null;
-                String icon_in_json = null;
-                String img_name = "http://weather-forecast-csci571.elasticbeanstalk.com/";
+        fb.setOnClickListener(new View.OnClickListener() {
+            String description_fb = null;
+            String icon_in_json_fb = null;
+            String img_name_fb = "http://weather-forecast-csci571.elasticbeanstalk.com/";
 
+            @Override
+            public void onClick(View v) {
                 if (ShareDialog.canShow(ShareLinkContent.class)) {
                     Intent intent1 = getIntent();
                     Bundle bd1 = intent1.getExtras();
@@ -116,53 +115,54 @@ public class ResultActivity extends FragmentActivity {
                     try {
                         jsonObj = new JSONObject((String) bd1.get("json"));
                         JSONObject current = jsonObj.getJSONObject("currently");
-                        description = current.getString("summary") + ", " + (int) Double.parseDouble(current.getString("temperature"));
+                        description_fb = current.getString("summary") + ", " + (int) Double.parseDouble(current.getString("temperature"));
                         city = (String) bd1.get("city");
-                        icon_in_json = current.getString("icon");
+                        icon_in_json_fb = current.getString("icon");
 
                         units = (String) bd1.get("unit");
                     }catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    if (Objects.equals(icon_in_json, "clear-day")) {
-                        img_name = img_name + "images/clear.png";
-                    } else if (Objects.equals(icon_in_json, "rain")) {
-                        img_name = img_name + "images/rain.png";
-                    } else if (Objects.equals(icon_in_json, "clear-night")) {
-                        img_name = img_name + "images/clear_night.png";
-                    } else if (Objects.equals(icon_in_json, "sleet")) {
-                        img_name = img_name + "images/sleet.png";
-                    } else if (Objects.equals(icon_in_json, "wind")) {
-                        img_name = img_name + "images/wind.png";
-                    } else if (Objects.equals(icon_in_json, "snow")) {
-                        img_name = img_name + "images/snow.png";
-                    } else if (Objects.equals(icon_in_json, "cloudy")) {
-                        img_name = img_name + "images/cloudy.png";
-                    } else if (Objects.equals(icon_in_json, "fog")) {
-                        img_name = img_name + "images/fog.png";
-                    } else if (Objects.equals(icon_in_json, "partly-cloudy-day")) {
-                        img_name = img_name + "images/cloud_day.png";
-                    } else if (Objects.equals(icon_in_json, "partly-cloudy-night")) {
-                        img_name = img_name + "images/cloud_night.png";
+                    if (Objects.equals(icon_in_json_fb, "clear-day")) {
+                        img_name_fb = img_name_fb + "images/clear.png";
+                    } else if (Objects.equals(icon_in_json_fb, "rain")) {
+                        img_name_fb = img_name_fb + "images/rain.png";
+                    } else if (Objects.equals(icon_in_json_fb, "clear-night")) {
+                        img_name_fb = img_name_fb + "images/clear_night.png";
+                    } else if (Objects.equals(icon_in_json_fb, "sleet")) {
+                        img_name_fb = img_name_fb + "images/sleet.png";
+                    } else if (Objects.equals(icon_in_json_fb, "wind")) {
+                        img_name_fb = img_name_fb + "images/wind.png";
+                    } else if (Objects.equals(icon_in_json_fb, "snow")) {
+                        img_name_fb = img_name_fb + "images/snow.png";
+                    } else if (Objects.equals(icon_in_json_fb, "cloudy")) {
+                        img_name_fb = img_name_fb + "images/cloudy.png";
+                    } else if (Objects.equals(icon_in_json_fb, "fog")) {
+                        img_name_fb = img_name_fb + "images/fog.png";
+                    } else if (Objects.equals(icon_in_json_fb, "partly-cloudy-day")) {
+                        img_name_fb = img_name_fb + "images/cloud_day.png";
+                    } else if (Objects.equals(icon_in_json_fb, "partly-cloudy-night")) {
+                        img_name_fb = img_name_fb + "images/cloud_night.png";
                     }
 
                     if(Objects.equals(units, "si")) {
-                        description  = description + (char) 0x00B0 + "C";
+                        description_fb  = description_fb + (char) 0x00B0 + "C";
                     } else {
-                        description = description + (char) 0x00B0 + "F";
+                        description_fb = description_fb + (char) 0x00B0 + "F";
                     }
 
-                    Log.d("Image", img_name);
+                    Log.d("Image", img_name_fb);
 
                     ShareLinkContent linkContent = new ShareLinkContent.Builder()
                             .setContentTitle("Current Weather in " + city)
-                            .setContentDescription(description)
-                            .setImageUrl(Uri.parse(img_name))
+                            .setContentDescription(description_fb)
+                            .setImageUrl(Uri.parse(img_name_fb))
                             .setContentUrl(Uri.parse("http://forecast.io"))
                             .build();
 
                     shareDialog = new ShareDialog((Activity) c);
+
                     // this part is optional
                     shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
                         @Override
@@ -183,18 +183,7 @@ public class ResultActivity extends FragmentActivity {
                     shareDialog.show(linkContent);
                 }
             }
-
-            @Override
-            public void onCancel() {
-                info.setText("Login attempt canceled.");
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
-            }
         });
-
 
 
 
