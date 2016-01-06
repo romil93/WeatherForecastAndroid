@@ -422,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                 }
 
                 if(!streetAddress.equals("") && !cityName.equals("") && !state.equals("")) {
-                    url = "http://weather-forecast-csci571.elasticbeanstalk.com/test.php?street_address="+streetAddress.replaceAll(" ","+")+"&city_name="+cityName.replaceAll(" ","+")+"&state="+state+"&temperature="+temperature;
+                    url = "HOSTED_LOCATION/test.php?street_address="+streetAddress.replaceAll(" ","+")+"&city_name="+cityName.replaceAll(" ","+")+"&state="+state+"&temperature="+temperature;
                     Log.d("URL",url);
                     TextView errorMsg = (TextView) findViewById(R.id.textView4);
                     errorMsg.setText("");
