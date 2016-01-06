@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -67,8 +68,11 @@ public class JSONParser {
             json_replaced = json_replaced.substring(1, json_replaced.length()-1);
             json_replaced = json_replaced.replaceAll("\"","'");
 			Log.d("JSON Parser", json_replaced);
-
-			jObj = new JSONObject(json_replaced);
+			if(!Objects.equals(json_replaced, "")) {
+                jObj = new JSONObject(json_replaced);
+			} else {
+                jObj = null;
+            }
 		} catch (JSONException e) {
 			Log.e("JSON Parser", "Error parsing data " + e.toString());
 		}

@@ -1,6 +1,7 @@
 package com.romil93.weatherforecast;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
 
     JSONArray user = null;
 
+    Context c;
+
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -94,11 +97,16 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
             pDialog.dismiss();
             resultJson = json;
 
-            Intent resultIntent =  new Intent(MainActivity.this, ResultActivity.class);
-            resultIntent.putExtra("city", cityName+", "+state);
-            resultIntent.putExtra("json", resultJson.toString());
-            resultIntent.putExtra("unit", temperature);
-            startActivity(resultIntent);
+            if(resultJson == null) {
+                Toast.makeText(MainActivity.this, "Incorrect data", Toast.LENGTH_LONG).show();
+            } else {
+
+                Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
+                resultIntent.putExtra("city", cityName + ", " + state);
+                resultIntent.putExtra("json", resultJson.toString());
+                resultIntent.putExtra("unit", temperature);
+                startActivity(resultIntent);
+            }
         }
     }
 
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        c = this;
         button = (Button)findViewById(R.id.aboutButton);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -416,6 +424,8 @@ public class MainActivity extends AppCompatActivity implements OnItemSelectedLis
                 if(!streetAddress.equals("") && !cityName.equals("") && !state.equals("")) {
                     url = "http://weather-forecast-csci571.elasticbeanstalk.com/test.php?street_address="+streetAddress.replaceAll(" ","+")+"&city_name="+cityName.replaceAll(" ","+")+"&state="+state+"&temperature="+temperature;
                     Log.d("URL",url);
+                    TextView errorMsg = (TextView) findViewById(R.id.textView4);
+                    errorMsg.setText("");
                     new JSONParse().execute();
                 }
 

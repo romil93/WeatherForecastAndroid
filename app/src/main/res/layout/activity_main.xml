@@ -182,5 +182,17 @@
         android:layout_below="@+id/searchButton"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powered By:"
+        android:id="@+id/textView5"
+        android:textSize="20dp"
+        android:layout_above="@+id/aboutButton"
+        android:layout_alignEnd="@+id/temperature"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textColor="#222" />
+
 
 </RelativeLayout>

@@ -29,7 +29,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
-    import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONArray;
@@ -80,8 +80,6 @@ public class ResultActivity extends FragmentActivity {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
-    private final String[] PERMISSIONS = new String[] { "public_profile", "email" };
-
     Context c;
 
 
@@ -99,6 +97,7 @@ public class ResultActivity extends FragmentActivity {
         shareDialog = new ShareDialog(this);
         info = (TextView)findViewById(R.id.info);
         fb = (ImageButton) findViewById(R.id.button);
+
         c = this;
 
         fb.setOnClickListener(new View.OnClickListener() {
@@ -251,7 +250,7 @@ public class ResultActivity extends FragmentActivity {
                 }
 
 
-                int precip_intensity = Integer.parseInt(currently.getString("precipIntensity"));
+                int precip_intensity = (int) Double.parseDouble(currently.getString("precipIntensity"));
                 if (precip_intensity < 0.002) {
                     precipitation = "None";
                 } else if (precip_intensity < 0.017) {

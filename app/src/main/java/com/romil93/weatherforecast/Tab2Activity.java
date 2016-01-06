@@ -91,20 +91,6 @@ public class Tab2Activity  extends Activity
                 image = (ImageView) findViewById(R.id.day1image);
                 tempMinMax = (TextView) findViewById(R.id.day1minmax);
 
-                date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(0).getString("time")),json.getString("timezone")));
-                set_image(dailyArray.getJSONObject(0).getString("icon"), image);
-                if(Objects.equals(units, "si")) {
-                    minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(0).getString("temperatureMin")) + (char) 0x00B0 + "C" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(0).getString("temperatureMax")) + (char) 0x00B0 + "C";
-                } else {
-                    minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(0).getString("temperatureMin")) + (char) 0x00B0 + "F" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(0).getString("temperatureMax")) + (char) 0x00B0 + "F";
-                }
-                tempMinMax.setText(minMax);
-
-                //Day2
-                date = (TextView) findViewById(R.id.day2date);
-                image = (ImageView) findViewById(R.id.day2image);
-                tempMinMax = (TextView) findViewById(R.id.day2minmax);
-
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(1).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(1).getString("icon"), image);
                 if(Objects.equals(units, "si")) {
@@ -114,10 +100,10 @@ public class Tab2Activity  extends Activity
                 }
                 tempMinMax.setText(minMax);
 
-                //Day3
-                date = (TextView) findViewById(R.id.day3date);
-                image = (ImageView) findViewById(R.id.day3image);
-                tempMinMax = (TextView) findViewById(R.id.day3minmax);
+                //Day2
+                date = (TextView) findViewById(R.id.day2date);
+                image = (ImageView) findViewById(R.id.day2image);
+                tempMinMax = (TextView) findViewById(R.id.day2minmax);
 
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(2).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(2).getString("icon"), image);
@@ -128,10 +114,10 @@ public class Tab2Activity  extends Activity
                 }
                 tempMinMax.setText(minMax);
 
-                //Day4
-                date = (TextView) findViewById(R.id.day4date);
-                image = (ImageView) findViewById(R.id.day4image);
-                tempMinMax = (TextView) findViewById(R.id.day4minmax);
+                //Day3
+                date = (TextView) findViewById(R.id.day3date);
+                image = (ImageView) findViewById(R.id.day3image);
+                tempMinMax = (TextView) findViewById(R.id.day3minmax);
 
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(3).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(3).getString("icon"), image);
@@ -142,10 +128,10 @@ public class Tab2Activity  extends Activity
                 }
                 tempMinMax.setText(minMax);
 
-                //Day5
-                date = (TextView) findViewById(R.id.day5date);
-                image = (ImageView) findViewById(R.id.day5image);
-                tempMinMax = (TextView) findViewById(R.id.day5minmax);
+                //Day4
+                date = (TextView) findViewById(R.id.day4date);
+                image = (ImageView) findViewById(R.id.day4image);
+                tempMinMax = (TextView) findViewById(R.id.day4minmax);
 
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(4).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(4).getString("icon"), image);
@@ -156,10 +142,10 @@ public class Tab2Activity  extends Activity
                 }
                 tempMinMax.setText(minMax);
 
-                //Day6
-                date = (TextView) findViewById(R.id.day6date);
-                image = (ImageView) findViewById(R.id.day6image);
-                tempMinMax = (TextView) findViewById(R.id.day6minmax);
+                //Day5
+                date = (TextView) findViewById(R.id.day5date);
+                image = (ImageView) findViewById(R.id.day5image);
+                tempMinMax = (TextView) findViewById(R.id.day5minmax);
 
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(5).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(5).getString("icon"), image);
@@ -170,10 +156,10 @@ public class Tab2Activity  extends Activity
                 }
                 tempMinMax.setText(minMax);
 
-                //Day7
-                date = (TextView) findViewById(R.id.day7date);
-                image = (ImageView) findViewById(R.id.day7image);
-                tempMinMax = (TextView) findViewById(R.id.day7minmax);
+                //Day6
+                date = (TextView) findViewById(R.id.day6date);
+                image = (ImageView) findViewById(R.id.day6image);
+                tempMinMax = (TextView) findViewById(R.id.day6minmax);
 
                 date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(6).getString("time")),json.getString("timezone")));
                 set_image(dailyArray.getJSONObject(6).getString("icon"), image);
@@ -181,6 +167,20 @@ public class Tab2Activity  extends Activity
                     minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(6).getString("temperatureMin")) + (char) 0x00B0 + "C" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(6).getString("temperatureMax")) + (char) 0x00B0 + "C";
                 } else {
                     minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(6).getString("temperatureMin")) + (char) 0x00B0 + "F" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(6).getString("temperatureMax")) + (char) 0x00B0 + "F";
+                }
+                tempMinMax.setText(minMax);
+
+                //Day7
+                date = (TextView) findViewById(R.id.day7date);
+                image = (ImageView) findViewById(R.id.day7image);
+                tempMinMax = (TextView) findViewById(R.id.day7minmax);
+
+                date.setText(time_timezone(Long.parseLong(dailyArray.getJSONObject(7).getString("time")),json.getString("timezone")));
+                set_image(dailyArray.getJSONObject(7).getString("icon"), image);
+                if(Objects.equals(units, "si")) {
+                    minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(7).getString("temperatureMin")) + (char) 0x00B0 + "C" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(7).getString("temperatureMax")) + (char) 0x00B0 + "C";
+                } else {
+                    minMax  = "Min: " + (int)Double.parseDouble(dailyArray.getJSONObject(7).getString("temperatureMin")) + (char) 0x00B0 + "F" + " | Max: " + (int)Double.parseDouble(dailyArray.getJSONObject(7).getString("temperatureMax")) + (char) 0x00B0 + "F";
                 }
                 tempMinMax.setText(minMax);
 
